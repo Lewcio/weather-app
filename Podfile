@@ -1,5 +1,5 @@
-# Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '10.0'
 
 target 'Weather' do
   use_frameworks!
@@ -7,16 +7,8 @@ target 'Weather' do
   pod 'RxCocoa', '~> 5'
   pod 'SnapKit', '~> 5.0.0'
   pod 'Alamofire', '~> 5.2'
-
-  # Pods for Weather
-
-  target 'WeatherTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'WeatherUITests' do
-    # Pods for testing
-  end
+  pod 'XCoordinator', '~> 2.0'
+  pod 'Swinject'
+  pod 'R.swift'
 
 end
