@@ -24,7 +24,11 @@ class AppCoordinator: NavigationCoordinator<AppRoute> {
         switch route {
         case .dashboard:
             let viewController = DashboardViewController()
-            let interactor = DashboardInteractor()
+            let interactor = DashboardInteractor(
+                serviceManager: ServiceManager(),
+                locationManager: LocationManager(),
+                memoryManager: MemoryManager()
+            )
             let presenter = DashboardPresenter(interactor: interactor)
             viewController.presenter = presenter
             return .push(viewController)

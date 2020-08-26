@@ -27,7 +27,10 @@ class DashboardAssembly: Assembly {
         
         container.register(DashboardViewController.self) { (resolver, coordinator: DashboardCoordinatorDelegate) in
             let viewController = DashboardViewController()
-            let interactor = DashboardInteractor()
+            let interactor = DashboardInteractor(
+                serviceManager: ServiceManager(),
+                locationManager: LocationManager(),
+                memoryManager: MemoryManager())
             let presenter = DashboardPresenter(interactor: interactor)
             presenter.coordinator = coordinator
             viewController.presenter = presenter

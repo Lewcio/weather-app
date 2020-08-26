@@ -26,7 +26,7 @@ class LocationViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubviews()
+        setupSubviews()
         setupConstraints()
     }
     
@@ -38,7 +38,7 @@ class LocationViewCell: UICollectionViewCell {
         
     }
     
-    func addSubviews() {
+    func setupSubviews() {
         view.addSubview(weatherIconView)
         view.addSubview(temperatureLabel)
         view.addSubview(locationLabel)

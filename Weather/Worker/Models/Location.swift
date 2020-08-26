@@ -2,12 +2,14 @@
 //  Location.swift
 //  Weather
 //
-//  Created by m.lewandowski on 24/08/2020.
+//  Created by m.lewandowski on 26/08/2020.
 //  Copyright © 2020 michalewandowski.com. All rights reserved.
 //
 
 import Foundation
+import CoreLocation
 
 struct Location {
-    var city: String
+    let latitude: CLLocationDegrees
+    let longitude: CLLocationDegrees
 }

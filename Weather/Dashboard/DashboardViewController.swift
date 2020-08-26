@@ -20,8 +20,26 @@ final class DashboardViewController: UIViewController {
     
     // MARK: - Views
     
-    private let currentLocationView = UIView()
-    private let collectionView = UICollectionView()
+    private let currentLocationView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 10
+        
+        return view
+    }()
+    
+    private let currentLocationStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        return stackView
+    }()
+    
+    private let collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+        collectionView.register(LocationViewCell.self)
+        collectionView.backgroundColor = .white
+        
+        return collectionView
+    }()
 }
 
 // MARK: - View Lifecycle
@@ -47,17 +65,49 @@ extension DashboardViewController {
 private extension DashboardViewController {
     
     func configureComponents() {
-        addSubviews()
-        addConstraints()
+        setupSubviews()
+        setupConstraints()
         setupRx()
     }
     
-    func addSubviews() {
+    func setupSubviews() {
+        view.addSubview(currentLocationView)
+        view.addSubview(collectionView)
+        currentLocationView.addSubview(currentLocationStackView)
     }
     
-    func addConstraints() {
+    func setupConstraints() {
+        currentLocationView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(Constants.CurrentLocationView.top)
+            $0.leading.equalToSuperview().offset(Constants.Margin.leading)
+            $0.trailing.equalToSuperview().offset(Constants.Margin.trailing)
+        }
+        
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(currentLocationView.snp.bottom).offset(Constants.CollectionView.top)
+            $0.leading.equalToSuperview().offset(Constants.Margin.leading)
+            $0.trailing.equalToSuperview().offset(Constants.Margin.trailing)
+            $0.bottom.equalToSuperview()
+        }
     }
     
     func setupRx() {
+    }
+}
+
+private extension DashboardViewController {
+    struct Constants {
+        struct Margin {
+            static let leading: CGFloat = 20
+            static let trailing: CGFloat = -20
+        }
+        
+        struct CurrentLocationView {
+            static let top: CGFloat = 10
+        }
+        
+        struct CollectionView {
+            static let top: CGFloat = 10
+        }
     }
 }

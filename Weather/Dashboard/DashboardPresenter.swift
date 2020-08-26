@@ -18,6 +18,12 @@ final class DashboardPresenter: DashboardPresenterProtocol {
     let viewWillDisappearTrigger = PublishRelay<Void>()
 
     // MARK: - Outputs
+    
+    var currentLocWeather: Observable<Weather?> { return currentLocWeatherSubject.asObservable() }
+    var savedLocWeather: Observable<[Weather]> { return savedLocWeatherSubject.asObservable() }
+    
+    private let currentLocWeatherSubject = BehaviorSubject<Weather?>(value: nil)
+    private let savedLocWeatherSubject = BehaviorSubject<[Weather]>(value: [Weather]())
 
     // MARK: - Attributes
 

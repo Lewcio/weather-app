@@ -9,5 +9,28 @@
 import RxSwift
 
 final class DashboardInteractor: DashboardInteractorProtocol {
-
+    
+    private let serviceManager: ServiceManagerProtocol
+    private let locationManager: LocationManagerProtocol
+    private let memoryManager: MemoryManagerProtocol
+    
+    init(serviceManager: ServiceManagerProtocol, locationManager: LocationManagerProtocol, memoryManager: MemoryManagerProtocol) {
+        self.serviceManager = serviceManager
+        self.locationManager = locationManager
+        self.memoryManager = memoryManager
+    }
+    
+    func getSavedLocations() -> Observable<[SavedLocation]> {
+        return memoryManager.getSavedCities()
+    }
+    
+    func getWeatherForLocation(city: String) -> Observable<Weather> {
+        return serviceManager.getWeather(for: city)
+    }
+    
+    func getWeatherForCurrentLocation() -> Observable<Weather?> {
+        guard let location = locationManager.getCurrentLocation else { return Observable.just(nil) }
+        
+        return serviceManager.getWeather(for: location)
+    }
 }
