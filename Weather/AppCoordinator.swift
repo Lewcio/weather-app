@@ -11,7 +11,6 @@ import XCoordinator
 
 enum AppRoute: Route {
     case dashboard
-    case details
     case addLocation
 }
 
@@ -31,19 +30,14 @@ class AppCoordinator: NavigationCoordinator<AppRoute> {
             )
             let presenter = DashboardPresenter(interactor: interactor)
             viewController.presenter = presenter
-            return .push(viewController)
-        case .details:
-            let viewController = DetailsViewController()
-            let interactor = DetailsInteractor()
-            let presenter = DetailsPresenter(interactor: interactor)
-            viewController.presenter = presenter
+            viewController.router = unownedRouter
             return .push(viewController)
         case .addLocation:
-                let viewController = AddLocationViewController()
+            let viewController = AddLocationViewController()
             let interactor = AddLocationInteractor()
             let presenter = AddLocationPresenter(interactor: interactor)
             viewController.presenter = presenter
-            return .push(viewController)
+            return .present(viewController)
         }
     }
 }

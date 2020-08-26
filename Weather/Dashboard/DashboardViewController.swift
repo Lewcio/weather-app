@@ -10,11 +10,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import XCoordinator
 
 final class DashboardViewController: UIViewController {
 	
 	// MARK: - Attributes
 	var presenter: DashboardPresenterProtocol!
+    var router: UnownedRouter<AppRoute>?
     
     private let disposeBag = DisposeBag()
     
@@ -65,12 +67,15 @@ extension DashboardViewController {
 private extension DashboardViewController {
     
     func configureComponents() {
-        setupSubviews()
+        setupViews()
         setupConstraints()
         setupRx()
     }
     
-    func setupSubviews() {
+    func setupViews() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTapped))
+        view.backgroundColor = .white
+        
         view.addSubview(currentLocationView)
         view.addSubview(collectionView)
         currentLocationView.addSubview(currentLocationStackView)
@@ -92,6 +97,10 @@ private extension DashboardViewController {
     }
     
     func setupRx() {
+    }
+    
+    @objc func addTapped() {
+        router?.trigger(.addLocation)
     }
 }
 

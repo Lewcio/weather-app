@@ -19,6 +19,38 @@ final class AddLocationViewController: UIViewController {
     private let disposeBag = DisposeBag()
     
     // MARK: - Views
+    
+    private let dismissLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.layer.opacity = 0.4
+        view.layer.cornerRadius = 2
+        
+        return view
+    }()
+    
+    private let container: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 10
+        view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        
+        return view
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Type city".uppercased()
+        label.font = .systemFont(ofSize: 21, weight: .thin)
+        
+        return label
+    }()
+    
+    private let locationTextField: UITextField = {
+        let textField = UITextField()
+        
+        return textField
+    }()
 }
 
 // MARK: - View Lifecycle
@@ -44,17 +76,66 @@ extension AddLocationViewController {
 private extension AddLocationViewController {
     
     func configureComponents() {
-        addSubviews()
-        addConstraints()
+        setupViews()
+        setupConstraints()
         setupRx()
     }
     
-    func addSubviews() {
+    func setupViews() {
+        view.addSubview(dismissLine)
+        view.addSubview(container)
+        container.addSubview(titleLabel)
+        container.addSubview(locationTextField)
     }
     
-    func addConstraints() {
+    func setupConstraints() {
+        dismissLine.snp.makeConstraints {
+            $0.bottom.equalTo(container.snp.top).offset(-8)
+            $0.width.equalTo(100)
+            $0.height.equalTo(4)
+            $0.centerX.equalToSuperview()
+        }
+        
+        container.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(200)
+        }
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(20)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+        }
+        
+        locationTextField.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.leading.equalToSuperview().offset(20)
+            $0.trailing.equalToSuperview().offset(-20)
+        }
     }
     
     func setupRx() {
+        keyboardHeight()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] keyboardHeight in
+                self?.container.snp.updateConstraints {
+                    $0.height.equalTo(keyboardHeight + 200)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        locationTextField.rx.value
+    }
+    
+    func keyboardHeight() -> Observable<CGFloat> {
+        return Observable
+            .from([
+                NotificationCenter.default.rx.notification(UIResponder.keyboardWillShowNotification)
+                    .map { notification in
+                        (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.height ?? 0
+                    },
+                NotificationCenter.default.rx.notification(UIResponder.keyboardWillHideNotification)
+                    .map { _ in 0 }
+            ]).merge()
     }
 }
