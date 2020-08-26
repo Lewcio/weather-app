@@ -45,6 +45,10 @@ final class DashboardPresenter: DashboardPresenterProtocol {
 private extension DashboardPresenter {
     
     func viewDidLoad() {
-        // setup rx binding make first WS calls etc.
+        interactor.getWeatherForCurrentLocation().map { (weather) -> Weather? in
+            guard let weather = weather else { return nil }
+            return weather
+        }.bind(to: currentLocWeatherSubject)
+        .disposed(by: disposeBag)
     }
 }
