@@ -34,7 +34,7 @@ class AppCoordinator: NavigationCoordinator<AppRoute> {
             return .push(viewController)
         case .addLocation:
             let viewController = AddLocationViewController()
-            let interactor = AddLocationInteractor()
+            let interactor = AddLocationInteractor(memoryManager: MemoryManager())
             let presenter = AddLocationPresenter(interactor: interactor)
             viewController.presenter = presenter
             return .present(viewController)

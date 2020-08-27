@@ -19,11 +19,11 @@ final class DashboardPresenter: DashboardPresenterProtocol {
 
     // MARK: - Outputs
     
-    var currentLocWeather: Observable<Weather?> { return currentLocWeatherSubject.asObservable() }
-    var savedLocWeather: Observable<[Weather]> { return savedLocWeatherSubject.asObservable() }
+    var currentLocWeather: Observable<WeatherViewModel?> { return currentLocWeatherRelay.asObservable() }
+    var savedLocWeather: Driver<[WeatherViewModel]> { return savedLocWeatherRelay.asDriver() }
     
-    private let currentLocWeatherSubject = BehaviorSubject<Weather?>(value: nil)
-    private let savedLocWeatherSubject = BehaviorSubject<[Weather]>(value: [Weather]())
+    private let currentLocWeatherRelay = BehaviorRelay<WeatherViewModel?>(value: nil)
+    private let savedLocWeatherRelay = BehaviorRelay<[WeatherViewModel]>(value: [WeatherViewModel]())
 
     // MARK: - Attributes
 
@@ -36,19 +36,31 @@ final class DashboardPresenter: DashboardPresenterProtocol {
 
     init(interactor: DashboardInteractorProtocol) {
         self.interactor = interactor
-        inputs.viewDidLoadTrigger.subscribe(onNext: { [weak self] in
-            self?.viewDidLoad()
+        
+        inputs.viewWillAppearTrigger.subscribe(onNext: { [weak self] in
+            self?.viewWillAppear()
         }).disposed(by: disposeBag)
     }
 }
 
 private extension DashboardPresenter {
     
-    func viewDidLoad() {
-        interactor.getWeatherForCurrentLocation().map { (weather) -> Weather? in
+    func viewWillAppear() {
+        interactor.getWeatherForCurrentLocation().map { weather -> WeatherViewModel? in
             guard let weather = weather else { return nil }
-            return weather
-        }.bind(to: currentLocWeatherSubject)
+            return WeatherViewModel(weather)
+        }
+        .bind(to: currentLocWeatherRelay)
+        .disposed(by: disposeBag)
+        
+        interactor.getWeatherForSavedLocations().map { weather -> [WeatherViewModel] in
+            var result = [WeatherViewModel]()
+            weather.forEach {
+                result.append(WeatherViewModel($0))
+            }
+            return result
+        }
+        .bind(to: savedLocWeatherRelay)
         .disposed(by: disposeBag)
     }
 }

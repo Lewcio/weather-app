@@ -11,7 +11,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    let window: UIWindow! = UIWindow()
+    let window: UIWindow = UIWindow()
     let router = AppCoordinator().strongRouter
 
 

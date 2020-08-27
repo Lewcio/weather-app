@@ -20,11 +20,14 @@ final class DashboardInteractor: DashboardInteractorProtocol {
         self.memoryManager = memoryManager
     }
     
-    func getWeatherForLocation(city: String) -> Observable<Weather> {
-        memoryManager.getSavedCities().map { (location) -> [SavedLocation] in
-            return location
-        }
-        return serviceManager.getWeather(for: city)
+    func getWeatherForSavedLocations() -> Observable<[Weather]> {
+        return memoryManager.getSavedCities().map { $0 }
+            .flatMap { (locations: [SavedLocation]) -> Observable<[Weather]> in
+                let sequence = locations.compactMap { location in
+                    return self.serviceManager.getWeather(for: location.city)
+                }
+                return Observable.combineLatest(sequence)
+            }
     }
     
     func getWeatherForCurrentLocation() -> Observable<Weather?> {

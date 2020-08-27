@@ -11,7 +11,7 @@ import RxSwift
 
 protocol MemoryManagerProtocol {
     func getSavedCities() -> Observable<[SavedLocation]>
-    func saveCity(city: String)
+    func saveLocation(city: String)
 }
 
 class MemoryManager: MemoryManagerProtocol {
@@ -19,14 +19,20 @@ class MemoryManager: MemoryManagerProtocol {
     let defaults = UserDefaults.standard
     
     func getSavedCities() -> Observable<[SavedLocation]> {
-        let cities = defaults.array(forKey: "SavedCities") as? [SavedLocation] ?? [SavedLocation]()
-        return Observable.just(cities)
+        let cities = defaults.array(forKey: "SavedCities") as? [String] ?? [String]()
+        var savedLocation = [SavedLocation]()
+        cities.forEach { savedLocation.append(SavedLocation(city: $0))}
+        return Observable.just(savedLocation)
     }
     
     
-    func saveCity(city: String) {
-        var cities = defaults.array(forKey: "SavedCities") as? [SavedLocation] ?? [SavedLocation]()
-        cities.append(SavedLocation(city: city))
+    func saveLocation(city: String) {
+        let formattedCity = city.lowercased()
+        var cities = defaults.array(forKey: "SavedCities") as? [String] ?? [String]()
+        
+        guard !cities.contains(formattedCity) else { return }
+        
+        cities.append(formattedCity)
         defaults.set(cities, forKey: "SavedCities")
     }
 }

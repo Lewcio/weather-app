@@ -10,7 +10,7 @@ import Foundation
 
 struct Weather: Decodable {
     let city: String
-    let summary: WeatherSummary
+    let summary: [WeatherSummary]
     let details: WeatherDetails
     let clouds: WeatherClouds
     
@@ -22,10 +22,12 @@ struct Weather: Decodable {
     }
     
     struct WeatherSummary: Decodable {
+        let id: Int
         let title: String
         let description: String
         
         enum CodingKeys: String, CodingKey {
+            case id
             case title = "main"
             case description
         }

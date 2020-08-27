@@ -16,6 +16,10 @@ final class AddLocationPresenter: AddLocationPresenterProtocol {
     let viewDidLoadTrigger = PublishRelay<Void>()
     let viewWillAppearTrigger = PublishRelay<Void>()
     let viewWillDisappearTrigger = PublishRelay<Void>()
+    
+    func saveLocation(city: String) {
+        interactor.saveLocation(city: city)
+    }
 
     // MARK: - Outputs
 

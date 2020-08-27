@@ -34,8 +34,11 @@ class LocationViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView(weather: Weather) {
-        
+    func setupView(viewModel: WeatherViewModel) {
+        weatherIconView.image = viewModel.icon
+        let temperatureString = String(format: "%.1f", viewModel.temperature)
+        temperatureLabel.text = temperatureString
+        locationLabel.text = viewModel.city
     }
     
     func setupSubviews() {

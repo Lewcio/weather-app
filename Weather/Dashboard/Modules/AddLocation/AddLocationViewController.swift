@@ -41,14 +41,19 @@ final class AddLocationViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Type city".uppercased()
-        label.font = .systemFont(ofSize: 21, weight: .thin)
+        label.font = .systemFont(ofSize: 21, weight: .heavy)
         
         return label
     }()
     
     private let locationTextField: UITextField = {
         let textField = UITextField()
-        
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.lightGray.cgColor
+        textField.layer.cornerRadius = 10
+        textField.font = .systemFont(ofSize: 16, weight: .medium)
+        textField.textColor = .black
+        textField.textAlignment = .center
         return textField
     }()
 }
@@ -111,6 +116,7 @@ private extension AddLocationViewController {
             $0.top.equalTo(titleLabel.snp.bottom).offset(10)
             $0.leading.equalToSuperview().offset(20)
             $0.trailing.equalToSuperview().offset(-20)
+            $0.height.equalTo(40)
         }
     }
     
@@ -124,7 +130,12 @@ private extension AddLocationViewController {
             })
             .disposed(by: disposeBag)
         
-        locationTextField.rx.value
+        locationTextField.rx.controlEvent(.editingDidEndOnExit).subscribe(onNext: { [weak self] _ in
+            if let locationText = self?.locationTextField.text, !locationText.isEmpty {
+                self?.presenter.saveLocation(city: locationText)
+            }
+            self?.dismiss(animated: true)
+        })
     }
     
     func keyboardHeight() -> Observable<CGFloat> {

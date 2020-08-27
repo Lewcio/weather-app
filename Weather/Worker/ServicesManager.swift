@@ -18,12 +18,11 @@ protocol ServiceManagerProtocol {
 class ServiceManager: ServiceManagerProtocol {
     let openWeatherApiKey = "25ddb8c40ea6098cef3f11cf12f43bec"
     
-    
     func getWeather(for city: String) -> Observable<Weather> {
-        let url = "api.openweathermap.org/data/2.5/weather?q=\(city)&appid=\(openWeatherApiKey)&lang=pl&units=metric"
+        let url = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=\(openWeatherApiKey)&lang=pl&units=metric"
         
         return Observable<Weather>.create { observer in
-            let request = AF.request(url).validate().responseDecodable(of: Weather.self) { (response) in
+            let request = AF.request(url).validate(statusCode: 200..<300).responseDecodable(of: Weather.self) { (response) in
                 guard let weather = response.value else { return }
                 
                 observer.onNext(weather)
@@ -36,10 +35,10 @@ class ServiceManager: ServiceManagerProtocol {
     }
     
     func getWeather(for loc: Location) -> Observable<Weather?> {
-        let url = "api.openweathermap.org/data/2.5/weather?lat=\(loc.latitude)&lon=\(loc.longitude)&appid=\(openWeatherApiKey)&lang=pl&units=metric"
+        let url = "https://api.openweathermap.org/data/2.5/weather?lat=\(loc.latitude)&lon=\(loc.longitude)&appid=\(openWeatherApiKey)&lang=pl&units=metric"
         
         return Observable<Weather?>.create { observer in
-            let request = AF.request(url).validate().responseDecodable(of: Weather.self) { (response) in
+            let request = AF.request(url).validate(statusCode: 200..<300).responseDecodable(of: Weather.self) { (response) in
                 guard let weather = response.value else { return }
                 
                 observer.onNext(weather)

@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 protocol AddLocationInteractorProtocol: AnyObject {
+    func saveLocation(city: String)
 }
 
 protocol AddLocationCoordinatorDelegate: AnyObject {
@@ -19,6 +20,7 @@ protocol AddLocationPresenterInputsProtocol: AnyObject {
     var viewDidLoadTrigger: PublishRelay<Void> { get }
     var viewWillAppearTrigger: PublishRelay<Void> { get }
     var viewWillDisappearTrigger: PublishRelay<Void> { get }
+    func saveLocation(city: String)
 }
 
 protocol AddLocationPresenterOutputsProtocol: AnyObject {

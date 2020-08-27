@@ -9,5 +9,16 @@
 import RxSwift
 
 final class AddLocationInteractor: AddLocationInteractorProtocol {
+    
+    private let memoryManager: MemoryManagerProtocol
+    
+    init(memoryManager: MemoryManagerProtocol) {
+        self.memoryManager = memoryManager
+    }
+    
+    func saveLocation(city: String) {
+        memoryManager.saveLocation(city: city)
+    }
+    
 
 }

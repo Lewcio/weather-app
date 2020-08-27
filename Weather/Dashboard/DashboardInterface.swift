@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 protocol DashboardInteractorProtocol: AnyObject {
-    func getWeatherForLocation(city: String) -> Observable<Weather>
+    func getWeatherForSavedLocations() -> Observable<[Weather]>
     func getWeatherForCurrentLocation() -> Observable<Weather?>
 }
 
@@ -24,6 +24,8 @@ protocol DashboardPresenterInputsProtocol: AnyObject {
 }
 
 protocol DashboardPresenterOutputsProtocol: AnyObject {
+    var currentLocWeather: Observable<WeatherViewModel?> { get }
+    var savedLocWeather: Driver<[WeatherViewModel]> { get }
 }
 
 protocol DashboardPresenterProtocol: DashboardPresenterInputsProtocol, DashboardPresenterOutputsProtocol {

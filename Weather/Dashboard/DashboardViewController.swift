@@ -12,7 +12,7 @@ import RxCocoa
 import SnapKit
 import XCoordinator
 
-final class DashboardViewController: UIViewController {
+final class DashboardViewController: UIViewController, UIScrollViewDelegate {
 	
 	// MARK: - Attributes
 	var presenter: DashboardPresenterProtocol!
@@ -73,7 +73,7 @@ private extension DashboardViewController {
     }
     
     func setupViews() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         view.backgroundColor = .white
         
         view.addSubview(currentLocationView)
@@ -97,6 +97,29 @@ private extension DashboardViewController {
     }
     
     func setupRx() {
+        collectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        
+        presenter.outputs.currentLocWeather.subscribe(onNext: { viewModel in
+            guard let viewModel = viewModel else { return }
+            let icon = UIImageView(image: viewModel.icon)
+            icon.snp.makeConstraints { $0.size.equalTo(100) }
+
+            let temperatureLabel = UILabel()
+            let temperatureString = String(format: "%.1f", viewModel.temperature)
+            temperatureLabel.font = .systemFont(ofSize: 24, weight: .heavy)
+            temperatureLabel.text = temperatureString
+
+            let cityLabel = UILabel()
+            cityLabel.font = .systemFont(ofSize: 17, weight: .heavy)
+            cityLabel.text = viewModel.city
+        }).disposed(by: disposeBag)
+        
+        presenter.outputs.savedLocWeather.drive(collectionView.rx.items) { (collectionView, row, viewModel) in
+            let indexPath = IndexPath(row: row, section: 0)
+            let cell: LocationViewCell = collectionView.dequeueReusableCell(for: indexPath)
+            cell.setupView(viewModel: viewModel)
+            return cell
+        }.disposed(by: disposeBag)
     }
     
     @objc func addTapped() {
