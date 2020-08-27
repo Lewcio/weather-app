@@ -12,21 +12,14 @@ import RxCocoa
 final class AddLocationPresenter: AddLocationPresenterProtocol {
 
     // MARK: - Inputs
-
-    let viewDidLoadTrigger = PublishRelay<Void>()
-    let viewWillAppearTrigger = PublishRelay<Void>()
-    let viewWillDisappearTrigger = PublishRelay<Void>()
     
     func saveLocation(city: String) {
         interactor.saveLocation(city: city)
     }
 
-    // MARK: - Outputs
-
     // MARK: - Attributes
 
     private let interactor: AddLocationInteractorProtocol
-    weak var coordinator: AddLocationCoordinatorDelegate?
 
     private let disposeBag = DisposeBag()
 
@@ -34,15 +27,5 @@ final class AddLocationPresenter: AddLocationPresenterProtocol {
 
     init(interactor: AddLocationInteractorProtocol) {
         self.interactor = interactor
-        inputs.viewDidLoadTrigger.subscribe(onNext: { [weak self] in
-            self?.viewDidLoad()
-        }).disposed(by: disposeBag)
-    }
-}
-
-private extension AddLocationPresenter {
-    
-    func viewDidLoad() {
-        // setup rx binding make first WS calls etc.
     }
 }

@@ -14,13 +14,8 @@ protocol DashboardInteractorProtocol: AnyObject {
     func getWeatherForCurrentLocation() -> Observable<Weather?>
 }
 
-protocol DashboardCoordinatorDelegate: AnyObject {
-}
-
 protocol DashboardPresenterInputsProtocol: AnyObject {
     var viewDidLoadTrigger: PublishRelay<Void> { get }
-    var viewWillAppearTrigger: PublishRelay<Void> { get }
-    var viewWillDisappearTrigger: PublishRelay<Void> { get }
 }
 
 protocol DashboardPresenterOutputsProtocol: AnyObject {

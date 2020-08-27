@@ -37,6 +37,7 @@ class AppCoordinator: NavigationCoordinator<AppRoute> {
             let interactor = AddLocationInteractor(memoryManager: MemoryManager())
             let presenter = AddLocationPresenter(interactor: interactor)
             viewController.presenter = presenter
+            viewController.modalPresentationStyle = .pageSheet
             return .present(viewController)
         }
     }

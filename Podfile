@@ -8,7 +8,6 @@ target 'Weather' do
   pod 'SnapKit', '~> 5.0.0'
   pod 'Alamofire', '~> 5.2'
   pod 'XCoordinator', '~> 2.0'
-  pod 'Swinject'
   pod 'R.swift'
 
 end

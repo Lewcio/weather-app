@@ -14,8 +14,6 @@ final class DashboardPresenter: DashboardPresenterProtocol {
     // MARK: - Inputs
 
     let viewDidLoadTrigger = PublishRelay<Void>()
-    let viewWillAppearTrigger = PublishRelay<Void>()
-    let viewWillDisappearTrigger = PublishRelay<Void>()
 
     // MARK: - Outputs
     
@@ -28,7 +26,6 @@ final class DashboardPresenter: DashboardPresenterProtocol {
     // MARK: - Attributes
 
     private let interactor: DashboardInteractorProtocol
-    weak var coordinator: DashboardCoordinatorDelegate?
 
     private let disposeBag = DisposeBag()
 
@@ -37,15 +34,15 @@ final class DashboardPresenter: DashboardPresenterProtocol {
     init(interactor: DashboardInteractorProtocol) {
         self.interactor = interactor
         
-        inputs.viewWillAppearTrigger.subscribe(onNext: { [weak self] in
-            self?.viewWillAppear()
+        inputs.viewDidLoadTrigger.subscribe(onNext: { [weak self] in
+            self?.viewDidLoad()
         }).disposed(by: disposeBag)
     }
 }
 
 private extension DashboardPresenter {
     
-    func viewWillAppear() {
+    func viewDidLoad() {
         interactor.getWeatherForCurrentLocation().map { weather -> WeatherViewModel? in
             guard let weather = weather else { return nil }
             return WeatherViewModel(weather)

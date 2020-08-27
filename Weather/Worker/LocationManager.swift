@@ -17,7 +17,9 @@ class LocationManager: LocationManagerProtocol {
     
     var getCurrentLocation: Location? {
         let locationManager = CLLocationManager()
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
+        
+        guard CLLocationManager.locationServicesEnabled() else { return nil }
         locationManager.startUpdatingLocation()
         let location = locationManager.location
         

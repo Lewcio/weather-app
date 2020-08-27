@@ -19,11 +19,10 @@
 		FA8699D224F6943000596194 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8699D124F6943000596194 /* LocationManager.swift */; };
 		FA8699D424F6946700596194 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8699D324F6946700596194 /* Location.swift */; };
 		FA9C3A1524F2878800A03059 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9C3A1424F2878800A03059 /* Weather.swift */; };
-		FA9C3A1924F4638900A03059 /* DashboardAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9C3A1824F4638900A03059 /* DashboardAssembly.swift */; };
-		FA9F855C24F471A200907935 /* DependencyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9F855B24F471A200907935 /* DependencyProvider.swift */; };
 		FA9F855F24F4845100907935 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9F855E24F4845100907935 /* AppCoordinator.swift */; };
 		FA9F856224F5664D00907935 /* LocationViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9F856124F5664D00907935 /* LocationViewCell.swift */; };
 		FAB02FD024F7F863009E8B44 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB02FCF24F7F863009E8B44 /* R.generated.swift */; };
+		FAB02FD424F84501009E8B44 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB02FD324F84501009E8B44 /* UIColor.swift */; };
 		FAC2E50924F2733300F9B469 /* AddLocationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2E4F224F2733300F9B469 /* AddLocationInteractor.swift */; };
 		FAC2E50A24F2733300F9B469 /* AddLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2E4F424F2733300F9B469 /* AddLocationModel.swift */; };
 		FAC2E50B24F2733300F9B469 /* AddLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC2E4F524F2733300F9B469 /* AddLocationViewModel.swift */; };
@@ -78,11 +77,10 @@
 		FA8699D124F6943000596194 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		FA8699D324F6946700596194 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		FA9C3A1424F2878800A03059 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
-		FA9C3A1824F4638900A03059 /* DashboardAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAssembly.swift; sourceTree = "<group>"; };
-		FA9F855B24F471A200907935 /* DependencyProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyProvider.swift; sourceTree = "<group>"; };
 		FA9F855E24F4845100907935 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		FA9F856124F5664D00907935 /* LocationViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewCell.swift; sourceTree = "<group>"; };
 		FAB02FCF24F7F863009E8B44 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		FAB02FD324F84501009E8B44 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		FAC2E4F224F2733300F9B469 /* AddLocationInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationInteractor.swift; sourceTree = "<group>"; };
 		FAC2E4F424F2733300F9B469 /* AddLocationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationModel.swift; sourceTree = "<group>"; };
 		FAC2E4F524F2733300F9B469 /* AddLocationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLocationViewModel.swift; sourceTree = "<group>"; };
@@ -172,7 +170,6 @@
 				FAC2E50124F2733300F9B469 /* Dashboard */,
 				FAC2E51B24F2778500F9B469 /* Worker */,
 				FA70E46924F081C500FB228C /* AppDelegate.swift */,
-				FA9F855B24F471A200907935 /* DependencyProvider.swift */,
 				FA9F855E24F4845100907935 /* AppCoordinator.swift */,
 				FA70E47224F081C600FB228C /* Assets.xcassets */,
 				FA70E47424F081C600FB228C /* LaunchScreen.storyboard */,
@@ -205,6 +202,7 @@
 				FA8699CD24F6720400596194 /* ReusableView.swift */,
 				FA8699CF24F6914900596194 /* UICollectionView+Reusable.swift */,
 				FA8699CB24F671B500596194 /* UICollectionView.swift */,
+				FAB02FD324F84501009E8B44 /* UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -270,7 +268,6 @@
 				FABB3A1524F181610067AD47 /* Modules */,
 				FA9F856024F5662400907935 /* Views */,
 				FAC2E50624F2733300F9B469 /* Models */,
-				FA9C3A1824F4638900A03059 /* DashboardAssembly.swift */,
 				FAC2E50224F2733300F9B469 /* DashboardInteractor.swift */,
 				FAC2E50324F2733300F9B469 /* DashboardViewController.swift */,
 				FAC2E50424F2733300F9B469 /* DashboardPresenter.swift */,
@@ -502,12 +499,11 @@
 				FAC7965724F696FA000930C1 /* SavedLocation.swift in Sources */,
 				FAC2E50D24F2733300F9B469 /* AddLocationViewController.swift in Sources */,
 				FAC2E51A24F2733300F9B469 /* WeatherViewModel.swift in Sources */,
+				FAB02FD424F84501009E8B44 /* UIColor.swift in Sources */,
 				FAC2E51724F2733300F9B469 /* DashboardPresenter.swift in Sources */,
-				FA9F855C24F471A200907935 /* DependencyProvider.swift in Sources */,
 				FA8699CC24F671B500596194 /* UICollectionView.swift in Sources */,
 				FAC2E51524F2733300F9B469 /* DashboardInteractor.swift in Sources */,
 				FAC2E50B24F2733300F9B469 /* AddLocationViewModel.swift in Sources */,
-				FA9C3A1924F4638900A03059 /* DashboardAssembly.swift in Sources */,
 				FAC2E51824F2733300F9B469 /* DashboardInterface.swift in Sources */,
 				FAC2E50C24F2733300F9B469 /* AddLocationPresenter.swift in Sources */,
 				FA8699CE24F6720400596194 /* ReusableView.swift in Sources */,

@@ -12,7 +12,7 @@ import RxCocoa
 import SnapKit
 
 final class AddLocationViewController: UIViewController {
-	
+    
 	// MARK: - Attributes
 	var presenter: AddLocationPresenterProtocol!
     
@@ -22,8 +22,8 @@ final class AddLocationViewController: UIViewController {
     
     private let dismissLine: UIView = {
         let view = UIView()
-        view.backgroundColor = .black
-        view.layer.opacity = 0.4
+        view.backgroundColor = .white
+        view.layer.opacity = 0.7
         view.layer.cornerRadius = 2
         
         return view
@@ -41,7 +41,8 @@ final class AddLocationViewController: UIViewController {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Type city".uppercased()
-        label.font = .systemFont(ofSize: 21, weight: .heavy)
+        label.font = .systemFont(ofSize: 24, weight: .heavy)
+        label.textColor = .black
         
         return label
     }()
@@ -63,17 +64,6 @@ extension AddLocationViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureComponents()
-        presenter.inputs.viewDidLoadTrigger.accept(())
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        presenter.inputs.viewWillAppearTrigger.accept(())
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        presenter.inputs.viewWillDisappearTrigger.accept(())
     }
 }
 
@@ -124,18 +114,20 @@ private extension AddLocationViewController {
         keyboardHeight()
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] keyboardHeight in
-                self?.container.snp.updateConstraints {
-                    $0.height.equalTo(keyboardHeight + 200)
+                UIView.animate(withDuration: 2) {
+                    self?.container.snp.updateConstraints {
+                        $0.height.equalTo(keyboardHeight + 200)
+                    }
+                    self?.view.layoutIfNeeded()
                 }
-            })
-            .disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
         
         locationTextField.rx.controlEvent(.editingDidEndOnExit).subscribe(onNext: { [weak self] _ in
             if let locationText = self?.locationTextField.text, !locationText.isEmpty {
                 self?.presenter.saveLocation(city: locationText)
             }
             self?.dismiss(animated: true)
-        })
+        }).disposed(by: disposeBag)
     }
     
     func keyboardHeight() -> Observable<CGFloat> {
