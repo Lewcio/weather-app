@@ -23,11 +23,11 @@ final class DashboardViewController: UIViewController, UIScrollViewDelegate, CLL
     
     // MARK: - Views
     
-    private let currentLocationImage = UIImageView(image: R.image.location())
+    private let currentLocationNavImage = UIImageView(image: R.image.location())
     
     private let currentLocationLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: Constants.CurrentLocationLabel.fontSize, weight: .light)
+        label.font = .systemFont(ofSize: 14, weight: .light)
         label.textColor = .black
         label.text = "Current location"
         
@@ -85,7 +85,7 @@ private extension DashboardViewController {
         
         view.addSubview(currentLocationView)
         view.addSubview(collectionView)
-        currentLocationView.addSubview(currentLocationImage)
+        currentLocationView.addSubview(currentLocationNavImage)
         currentLocationView.addSubview(currentLocationLabel)
         currentLocationView.addSubview(currentLocationStackView)
     }
@@ -97,20 +97,20 @@ private extension DashboardViewController {
             $0.trailing.equalTo(self.view.safeAreaLayoutGuide.snp.trailing).offset(Constants.Margin.trailing)
         }
         
-        currentLocationImage.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(Constants.CurrentLocationStackView.top)
-            $0.leading.equalToSuperview().offset(Constants.CurrentLocationImage.leading)
-            $0.size.equalTo(Constants.CurrentLocationImage.size)
+        currentLocationNavImage.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(Constants.CurrentLocationNavImage.top)
+            $0.leading.equalToSuperview().offset(Constants.CurrentLocationNavImage.leading)
+            $0.size.equalTo(Constants.CurrentLocationNavImage.size)
         }
         
         currentLocationLabel.snp.makeConstraints {
-            $0.centerY.equalTo(currentLocationImage.snp.centerY)
-            $0.leading.equalTo(currentLocationImage.snp.trailing).offset(Constants.CurrentLocationLabel.leading)
+            $0.centerY.equalTo(currentLocationNavImage.snp.centerY)
+            $0.leading.equalTo(currentLocationNavImage.snp.trailing).offset(Constants.CurrentLocationLabel.leading)
             $0.trailing.equalToSuperview().offset(Constants.CurrentLocationLabel.trailing)
         }
         
         currentLocationStackView.snp.makeConstraints {
-            $0.top.equalTo(currentLocationImage.snp.bottom).offset(Constants.CurrentLocationStackView.top)
+            $0.top.equalTo(currentLocationNavImage.snp.bottom).offset(Constants.CurrentLocationStackView.top)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().offset(Constants.CurrentLocationStackView.bottom)
         }
@@ -127,24 +127,10 @@ private extension DashboardViewController {
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
         
         presenter.outputs.currentLocWeather.subscribe(onNext: { viewModel in
-            guard let viewModel = viewModel else { return }
-            let image = UIImageView(image: viewModel.icon)
-            image.snp.makeConstraints { $0.size.equalTo(Constants.WeatherIcon.size) }
-
-            let temperatureLabel = UILabel()
-            let temperatureString = String(format: "%.1f", viewModel.temperature)
-            temperatureLabel.font = .systemFont(ofSize: Constants.TemperatureLabel.fontSize, weight: .heavy)
-            temperatureLabel.textColor = .white
-            temperatureLabel.text = "\(temperatureString) ℃"
-
-            let cityLabel = UILabel()
-            cityLabel.font = .systemFont(ofSize: Constants.CityLabel.fontSize, weight: .semibold)
-            cityLabel.textColor = .white
-            cityLabel.text = viewModel.city
-            
-            self.currentLocationStackView.addArrangedSubview(image)
-            self.currentLocationStackView.addArrangedSubview(temperatureLabel)
-            self.currentLocationStackView.addArrangedSubview(cityLabel)
+            self.currentLocationStackView.removeAllArrangedSubviews()
+            DashboardStackViewGenerator.currentLocation(viewModel: viewModel).forEach {
+                self.currentLocationStackView.addArrangedSubview($0)
+            }
         }).disposed(by: disposeBag)
         
         presenter.outputs.savedLocWeather.drive(collectionView.rx.items) { (collectionView, row, viewModel) in
@@ -175,7 +161,8 @@ private extension DashboardViewController {
             static let trailing: CGFloat = -20
         }
         
-        struct CurrentLocationImage {
+        struct CurrentLocationNavImage {
+            static let top: CGFloat = 15
             static let leading: CGFloat = 20
             static let size: CGFloat = 20
         }
@@ -187,24 +174,11 @@ private extension DashboardViewController {
         struct CurrentLocationLabel {
             static let leading: CGFloat = 10
             static let trailing: CGFloat = -20
-            static let fontSize: CGFloat = 14
         }
         
         struct CurrentLocationStackView {
             static let top: CGFloat = 20
             static let bottom: CGFloat = -20
-        }
-        
-        struct TemperatureLabel {
-            static let fontSize: CGFloat = 36
-        }
-        
-        struct WeatherIcon {
-            static let size: CGFloat = 60
-        }
-        
-        struct CityLabel {
-            static let fontSize: CGFloat = 17
         }
         
         struct CollectionView {

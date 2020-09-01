@@ -31,7 +31,7 @@ final class AddLocationViewController: UIViewController {
     
     private let container: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .dark
         view.layer.cornerRadius = 10
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
@@ -42,7 +42,7 @@ final class AddLocationViewController: UIViewController {
         let label = UILabel()
         label.text = "Type city".uppercased()
         label.font = .systemFont(ofSize: 24, weight: .heavy)
-        label.textColor = .black
+        label.textColor = .white
         
         return label
     }()
@@ -53,8 +53,10 @@ final class AddLocationViewController: UIViewController {
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.cornerRadius = 10
         textField.font = .systemFont(ofSize: 16, weight: .medium)
-        textField.textColor = .black
+        textField.textColor = .white
+        textField.backgroundColor = .darkGray
         textField.textAlignment = .center
+        textField.returnKeyType = .next
         return textField
     }()
 }

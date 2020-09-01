@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2004456087D5117CE21B4796 /* Pods_Weather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5CC29E402451FFEAAD7DB8 /* Pods_Weather.framework */; };
+		FA288B0124FF040200CDDC9C /* DashboardStackViewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA288B0024FF040200CDDC9C /* DashboardStackViewGenerator.swift */; };
+		FA288B0324FF092000CDDC9C /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA288B0224FF092000CDDC9C /* UIStackView.swift */; };
 		FA70E46A24F081C500FB228C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA70E46924F081C500FB228C /* AppDelegate.swift */; };
 		FA70E47324F081C600FB228C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA70E47224F081C600FB228C /* Assets.xcassets */; };
 		FA70E47624F081C600FB228C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA70E47424F081C600FB228C /* LaunchScreen.storyboard */; };
@@ -60,6 +62,8 @@
 		2C5CC29E402451FFEAAD7DB8 /* Pods_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C538FD1BA4F652039C5CC7A9 /* Pods-Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather.debug.xcconfig"; path = "Target Support Files/Pods-Weather/Pods-Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		D955C9C1C6FB960F0F6E952B /* Pods-Weather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather.release.xcconfig"; path = "Target Support Files/Pods-Weather/Pods-Weather.release.xcconfig"; sourceTree = "<group>"; };
+		FA288B0024FF040200CDDC9C /* DashboardStackViewGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardStackViewGenerator.swift; sourceTree = "<group>"; };
+		FA288B0224FF092000CDDC9C /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
 		FA70E46624F081C500FB228C /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA70E46924F081C500FB228C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA70E47224F081C600FB228C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -203,6 +207,7 @@
 				FA8699CF24F6914900596194 /* UICollectionView+Reusable.swift */,
 				FA8699CB24F671B500596194 /* UICollectionView.swift */,
 				FAB02FD324F84501009E8B44 /* UIColor.swift */,
+				FA288B0224FF092000CDDC9C /* UIStackView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				FA9F856124F5664D00907935 /* LocationViewCell.swift */,
+				FA288B0024FF040200CDDC9C /* DashboardStackViewGenerator.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -491,6 +497,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA9C3A1524F2878800A03059 /* Weather.swift in Sources */,
+				FA288B0124FF040200CDDC9C /* DashboardStackViewGenerator.swift in Sources */,
 				FAC7965924F69B6E000930C1 /* MemoryManager.swift in Sources */,
 				FA8699D224F6943000596194 /* LocationManager.swift in Sources */,
 				FA70E46A24F081C500FB228C /* AppDelegate.swift in Sources */,
@@ -499,6 +506,7 @@
 				FAC7965724F696FA000930C1 /* SavedLocation.swift in Sources */,
 				FAC2E50D24F2733300F9B469 /* AddLocationViewController.swift in Sources */,
 				FAC2E51A24F2733300F9B469 /* WeatherViewModel.swift in Sources */,
+				FA288B0324FF092000CDDC9C /* UIStackView.swift in Sources */,
 				FAB02FD424F84501009E8B44 /* UIColor.swift in Sources */,
 				FAC2E51724F2733300F9B469 /* DashboardPresenter.swift in Sources */,
 				FA8699CC24F671B500596194 /* UICollectionView.swift in Sources */,

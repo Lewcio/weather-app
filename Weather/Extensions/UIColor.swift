@@ -9,5 +9,6 @@
 import UIKit
 
 extension UIColor {
-    static var veryDark = UIColor(red: 0.1, green: 0.1, blue: 0.1, alpha: 1)
+    static var veryDark = UIColor(white: 0.1, alpha: 1)
+    static var dark = UIColor(white: 0.222, alpha: 1)
 }
